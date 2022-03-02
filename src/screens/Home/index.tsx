@@ -7,6 +7,7 @@ import { Profile } from "../../components/Profile";
 import { ListDivider } from "../../components/ListDivider";
 import { Appointment } from "../../components/Appointment";
 import { styles } from "./styles";
+import { Background } from "../../components/Background";
 
 export function Home() {
   const [category, setCategory] = useState("");
@@ -58,7 +59,7 @@ export function Home() {
   }
 
   return (
-    <View>
+    <Background>
       <View style={styles.header}>
         <Profile />
         <ButtomAdd />
@@ -81,6 +82,6 @@ export function Home() {
           ItemSeparatorComponent={() => <ListDivider />}
         />
       </>
-    </View>
+    </Background>
   );
 }
