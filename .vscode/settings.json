@@ -1,0 +1,10 @@
+{
+    "eslint.debug": true,
+    "eslint.format.enable": true,
+    "eslint.lintTask.enable": true,
+    "eslint.packageManager": "yarn",
+    "editor.formatOnSave": true,
+    "editor.copyWithSyntaxHighlighting": false,
+    "editor.definitionLinkOpensInPeek": true,
+    "material-icon-theme.activeIconPack": "react"
+}
