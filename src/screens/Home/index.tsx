@@ -57,15 +57,15 @@ export function Home() {
     },
   ];
 
-  function handleCategorySelect(categoryId: string) {
+  const handleCategorySelect = (categoryId: string) => {
     categoryId === category ? setCategory("") : setCategory(categoryId);
-  }
-  function handleAppointmentDetails() {
+  };
+  const handleAppointmentDetails = () => {
     navigation.navigate("AppointmentDetails");
-  }
-  function handleAppointmentCreate() {
+  };
+  const handleAppointmentCreate = () => {
     navigation.navigate("AppointmentCreate");
-  }
+  };
 
   return (
     <Background>
@@ -88,6 +88,7 @@ export function Home() {
           renderItem={({ item }) => (
             <Appointment data={item} onPress={handleAppointmentDetails} />
           )}
+          contentContainerStyle={{ paddingBottom: 60 }}
           showsVerticalScrollIndicator={false}
           style={styles.matches}
           ItemSeparatorComponent={() => <ListDivider />}
