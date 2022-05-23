@@ -1,27 +1,22 @@
 import { StyleSheet } from 'react-native';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { theme } from '../../global/styles/theme';
 
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
+    height: 104,
+    paddingTop: getStatusBarHeight(),
     paddingHorizontal: 24,
-  },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    marginLeft: 20
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   title: {
+    flex: 1,
+    textAlign: 'center',
     fontFamily: theme.fonts.title700,
+    fontSize: 20,
     color: theme.colors.heading,
-    fontSize: 18,
-    marginBottom: 4,
-  },
-  type: {
-    fontFamily: theme.fonts.text400,
-    color: theme.colors.highlight,
-    fontSize: 13,
   }
 });
