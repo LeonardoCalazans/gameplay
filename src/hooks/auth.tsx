@@ -60,24 +60,19 @@ function AuthProvider({ children }: AuthProviderProps) {
       const { type, params } = (await AuthSession.startAsync({
         authUrl,
       })) as AuthorizationResponse;
+      
+      console.log("type", type);
+      console.log("params", params);
 
       if (type === "success" && !params.error) {
-        api.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${params.access_token}`;
-        // api.defaults.headers.Authorization =  `Bearer ${params.access_token}`;
-
+        api.defaults.headers.common["Authorization"] = `${params.access_token}`;
+        // api.defaults.headers.authorization = `Bearer ${params.access_token}`;
+        console.log("success");
         const userInfo = await api.get("/users/@me");
 
         const firstName = userInfo.data.username.split(" ")[0];
         userInfo.data.avatar = `${CDN_IMAGE}/avatars/${userInfo.data.id}/${userInfo.data.avatar}.png`;
-        //
-        setUser({
-          ...userInfo.data,
-          firstName,
-          token: params.access_token,
-        });
-        //
+
         const userData = {
           ...userInfo.data,
           firstName,
@@ -99,17 +94,17 @@ function AuthProvider({ children }: AuthProviderProps) {
     await AsyncStorage.removeItem(COLLECTION_USERS);
   };
 
-  async function loadUserStorageData() {
+  const loadUserStorageData = async () => {
     const storage = await AsyncStorage.getItem(COLLECTION_USERS);
 
     if (storage) {
       const userLogged = JSON.parse(storage) as User;
-      // api.defaults.headers.Authorization = `Bearer ${userLogged.token}`;
+      // api.defaults.headers.authorization = `Bearer ${userLogged.token}`;
       api.defaults.headers.common["Authorization"] = userLogged.token;
 
       setUser(userLogged);
     }
-  }
+  };
 
   useEffect(() => {
     loadUserStorageData();
