@@ -4,7 +4,7 @@ import { styles } from "./styles";
 import { Avatar } from "../Avatar";
 import { theme } from "../../global/styles/theme";
 
-export type MembersProps = {
+export type MemberProps = {
   id: string;
   username: string;
   avatarUrl: string;
@@ -12,7 +12,7 @@ export type MembersProps = {
 };
 
 type Props = {
-  data: MembersProps;
+  data: MemberProps;
 };
 
 export function Member({ data }: Props) {
