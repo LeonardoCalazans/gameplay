@@ -60,13 +60,14 @@ function AuthProvider({ children }: AuthProviderProps) {
       const { type, params } = (await AuthSession.startAsync({
         authUrl,
       })) as AuthorizationResponse;
-      
+
       console.log("type", type);
       console.log("params", params);
 
       if (type === "success" && !params.error) {
-        api.defaults.headers.common["Authorization"] = `${params.access_token}`;
-        // api.defaults.headers.authorization = `Bearer ${params.access_token}`;
+        api.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${params.access_token}`;
         console.log("success");
         const userInfo = await api.get("/users/@me");
 
