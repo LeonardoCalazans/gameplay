@@ -61,14 +61,11 @@ function AuthProvider({ children }: AuthProviderProps) {
         authUrl,
       })) as AuthorizationResponse;
 
-      console.log("type", type);
-      console.log("params", params);
-
       if (type === "success" && !params.error) {
         api.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${params.access_token}`;
-        console.log("success");
+
         const userInfo = await api.get("/users/@me");
 
         const firstName = userInfo.data.username.split(" ")[0];
@@ -100,8 +97,9 @@ function AuthProvider({ children }: AuthProviderProps) {
 
     if (storage) {
       const userLogged = JSON.parse(storage) as User;
-      // api.defaults.headers.authorization = `Bearer ${userLogged.token}`;
-      api.defaults.headers.common["Authorization"] = userLogged.token;
+      api.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${userLogged.token}`;
 
       setUser(userLogged);
     }
