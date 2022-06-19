@@ -52,6 +52,11 @@ export const styles = StyleSheet.create({
     marginLeft: 7,
     marginRight: 24
   },
+  iconDelete: {
+    fontSize: 14,
+    marginLeft: 7,
+    marginRight: 24
+  },
   guildIconContainer: {
     height: 68,
     width: 64,

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { View, FlatList, Text } from "react-native";
+import { View, FlatList, Text, Alert } from "react-native";
 import { styles } from "./styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -28,6 +28,32 @@ export function Home() {
     navigation.navigate("AppointmentDetails", { guildSelected });
   };
 
+  const deleteAppointment = async (id: AppointmentProps["id"]) => {
+    Alert.alert("Delete", "Deseja realmente deletar?", [
+      {
+        text: "Não",
+        style: "cancel",
+      },
+      {
+        text: "Sim",
+        onPress: async () => {
+          const response = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
+          const storage: AppointmentProps[] = response
+            ? JSON.parse(response)
+            : [];
+          const storage2 = storage.filter((item) => {
+            return item.id !== id;
+          });
+          await AsyncStorage.setItem(
+            COLLECTION_APPOINTMENTS,
+            JSON.stringify(storage2)
+          );
+          loadAppointments();
+        },
+      },
+    ]);
+  };
+
   const handleAppointmentCreate = () => {
     navigation.navigate("AppointmentCreate");
   };
@@ -35,7 +61,6 @@ export function Home() {
   const loadAppointments = async () => {
     const response = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
     const storage: AppointmentProps[] = response ? JSON.parse(response) : [];
-
     if (category) {
       setAppointments(storage.filter((item) => item.category === category));
     } else {
@@ -79,6 +104,7 @@ export function Home() {
               <Appointment
                 data={item}
                 onPress={() => handleAppointmentDetails(item)}
+                deleteAppointment={deleteAppointment}
               />
             )}
             ItemSeparatorComponent={() => <ListDivider />}

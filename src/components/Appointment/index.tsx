@@ -1,6 +1,10 @@
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { RectButton, RectButtonProps } from "react-native-gesture-handler";
+import {
+  BorderlessButton,
+  RectButton,
+  RectButtonProps,
+} from "react-native-gesture-handler";
 import { View, Text } from "react-native";
 
 import { theme } from "../../global/styles/theme";
@@ -11,6 +15,7 @@ import CalendarSvg from "../../assets/calendar.svg";
 import { GuildProps } from "../Guild";
 import { GuildIcon } from "../GuildIcon";
 import { categories } from "../../ultis/categories";
+import { Fontisto } from "@expo/vector-icons";
 
 export type AppointmentProps = {
   id: string;
@@ -22,9 +27,10 @@ export type AppointmentProps = {
 
 type Props = RectButtonProps & {
   data: AppointmentProps;
+  deleteAppointment: (id: AppointmentProps['id']) => void;
 };
 
-export function Appointment({ data, ...rest }: Props) {
+export function Appointment({ data, deleteAppointment, ...rest }: Props) {
   const [category] = categories.filter(
     (item: { id: string }) => item.id === data.category
   );
@@ -45,7 +51,15 @@ export function Appointment({ data, ...rest }: Props) {
           <View style={styles.header}>
             <Text style={styles.title}>{data.guild.name}</Text>
 
-            <Text style={styles.category}>{category.title}</Text>
+            <Text style={styles.category}>{category?.title}</Text>
+            <BorderlessButton>
+              <Fontisto
+                name="trash"
+                style={styles.iconDelete}
+                color={theme.colors.primary}
+                onPress={() => deleteAppointment(data.id)}
+              />
+            </BorderlessButton>
           </View>
 
           <View style={styles.footer}>
