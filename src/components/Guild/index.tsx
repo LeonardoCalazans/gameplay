@@ -10,7 +10,7 @@ import { Feather } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { theme } from "../../global/styles/theme";
 
-import { GuildIcon } from "../GuildIcon";
+import { GuildIcon } from "..";
 
 export type GuildProps = {
   id: string;
@@ -23,7 +23,7 @@ type Props = TouchableOpacityProps & {
   data: GuildProps;
 };
 
-export function Guild({ data, ...rest }: Props) {
+const Guild = ({ data, ...rest }: Props) => {
   return (
     <TouchableOpacity style={styles.container} activeOpacity={0.7} {...rest}>
       <GuildIcon guildId={data.id} iconId={data.icon} />
@@ -41,4 +41,6 @@ export function Guild({ data, ...rest }: Props) {
       <Feather name="chevron-right" color={theme.colors.heading} size={24} />
     </TouchableOpacity>
   );
-}
+};
+
+export default Guild;

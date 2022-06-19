@@ -2,10 +2,10 @@ import React from "react";
 import { View, Text, Alert } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import { useAuth } from "../../hooks/auth";
-import { Avatar } from "../Avatar";
+import { Avatar } from "..";
 import { styles } from "./styles";
 
-export function Profile() {
+const Profile = () => {
   const { user, singOut } = useAuth();
   function handleSignOut() {
     Alert.alert("Logout", "Deseja sair do GamePlay?", [
@@ -36,3 +36,5 @@ export function Profile() {
     </View>
   );
 }
+
+export default Profile;

@@ -8,18 +8,18 @@ import {
 
 import { styles } from './styles';
 
-import { Background } from '../Background';
+import { Background } from '..';
 
 type Props = ModalProps & {
   children: ReactNode;
   closeModal: () => void;
 }
 
-export function ModalView({
+const ModalView = ({
   children, 
   closeModal,
   ...rest
-}: Props){
+}: Props) => {
   return (
     <Modal
       transparent
@@ -40,3 +40,5 @@ export function ModalView({
     </Modal>
   );
 }
+
+export default ModalView;

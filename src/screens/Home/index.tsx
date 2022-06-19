@@ -4,17 +4,19 @@ import { View, FlatList, Text, Alert } from "react-native";
 import { styles } from "./styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { ButtonAdd } from "../../components/ButtonAdd";
-import { CategorySelect } from "../../components/CategorySelect";
-import { ListHeader } from "../../components/ListHeader";
-import { Profile } from "../../components/Profile";
-import { ListDivider } from "../../components/ListDivider";
-import { Appointment, AppointmentProps } from "../../components/Appointment";
-import { Background } from "../../components/Background";
 import { COLLECTION_APPOINTMENTS } from "../../configs/database";
-import { Load } from "../../components/Load";
+import Appointment, { AppointmentProps } from "../../components/Appointment";
+import {
+  Background,
+  ButtonAdd,
+  CategorySelect,
+  ListDivider,
+  ListHeader,
+  Load,
+  Profile,
+} from "../../components";
 
-export function Home() {
+const Home = () => {
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
@@ -116,4 +118,6 @@ export function Home() {
       )}
     </Background>
   );
-}
+};
+
+export default Home;

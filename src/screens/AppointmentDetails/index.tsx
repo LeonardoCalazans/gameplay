@@ -16,16 +16,18 @@ import { theme } from "../../global/styles/theme";
 import { styles } from "./styles";
 import BannerImg from "../../assets/banner.png";
 
-import { Background } from "../../components/Background";
-import { ListHeader } from "../../components/ListHeader";
-import { Header } from "../../components/Header";
-import { Member, MemberProps } from "../../components/Member";
-import { ListDivider } from "../../components/ListDivider";
-import { ButtonIcon } from "../../components/ButtonIcon";
-import { Load } from "../../components/Load";
 import { api } from "../../services/api";
 import { useRoute } from "@react-navigation/native";
 import { AppointmentProps } from "../../components/Appointment";
+import Member, { MemberProps } from "../../components/Member";
+import {
+  Background,
+  ButtonIcon,
+  Header,
+  ListDivider,
+  ListHeader,
+  Load,
+} from "../../components";
 
 type Params = {
   guildSelected: AppointmentProps;
@@ -38,7 +40,7 @@ type GuildWidget = {
   members: MemberProps[];
 };
 
-export function AppointmentDetails() {
+const AppointmentDetails = () => {
   const [widget, setWidget] = useState<GuildWidget>({} as GuildWidget);
   const [loading, setLoading] = useState(true);
   const route = useRoute();
@@ -126,4 +128,6 @@ export function AppointmentDetails() {
       )}
     </Background>
   );
-}
+};
+
+export default AppointmentDetails;

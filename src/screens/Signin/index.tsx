@@ -9,13 +9,12 @@ import {
 } from "react-native";
 
 import IllustrationImg from "../../assets/illustration.png";
-import { ButtonIcon } from "../../components/ButtonIcon";
 import { styles } from "./styles";
-import { Background } from "../../components/Background";
 import { useAuth } from "../../hooks/auth";
 import { theme } from "../../global/styles/theme";
+import { Background } from "../../components";
 
-export function SignIn() {
+const SignIn = () => {
   const { loading, signIn } = useAuth();
   const handleSignIn = async () => {
     try {
@@ -53,3 +52,5 @@ export function SignIn() {
     </Background>
   );
 }
+
+export default SignIn;

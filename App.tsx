@@ -11,11 +11,11 @@ import {
 } from "@expo-google-fonts/rajdhani";
 import AppLoading from "expo-app-loading";
 
-import { Routes } from "./src/routes";
-import { Background } from "./src/components/Background";
 import { AuthProvider } from "./src/hooks/auth";
+import { Background } from "./src/components";
+import Routes from "./src/routes";
 
-export default function App() {
+const App = () => {
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
@@ -39,4 +39,6 @@ export default function App() {
       </AuthProvider>
     </Background>
   );
-}
+};
+
+export default App;

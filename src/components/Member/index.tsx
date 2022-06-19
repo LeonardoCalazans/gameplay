@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { styles } from "./styles";
-import { Avatar } from "../Avatar";
+import { Avatar } from "..";
 import { theme } from "../../global/styles/theme";
 
 export type MemberProps = {
@@ -15,7 +15,7 @@ type Props = {
   data: MemberProps;
 };
 
-export function Member({ data }: Props) {
+const Member = ({ data }: Props) => {
   const { on, primary } = theme.colors;
   const isOnline = data.status === "online";
   return (
@@ -40,3 +40,5 @@ export function Member({ data }: Props) {
     </View>
   );
 }
+
+export default Member;

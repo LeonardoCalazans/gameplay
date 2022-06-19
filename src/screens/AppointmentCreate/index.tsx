@@ -8,25 +8,27 @@ import {
   Platform,
   KeyboardAvoidingView,
 } from "react-native";
+import {
+  Background,
+  Button,
+  CategorySelect,
+  GuildIcon,
+  Header,
+  ModalView,
+  SmallInput,
+  TextArea,
+} from "../../components";
 import { styles } from "./styles";
-import uuid from 'react-native-uuid';
+import uuid from "react-native-uuid";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { theme } from "../../global/styles/theme";
-import { Background } from "../../components/Background";
-import { Header } from "../../components/Header";
-import { CategorySelect } from "../../components/CategorySelect";
-import { SmallInput } from "../../components/SmallInput";
-import { TextArea } from "../../components/TextArea";
-import { Button } from "../../components/Button";
-import { ModalView } from "../../components/ModalView";
-import { Guilds } from "../Guilds";
-import { GuildProps } from "../../components/Guild";
-import { GuildIcon } from "../../components/GuildIcon";
 import { COLLECTION_APPOINTMENTS } from "../../configs/database";
+import { GuildProps } from "../../components/Guild";
+import { Guilds } from "..";
 
-export function AppointmentCreate() {
+const AppointmentCreate = () => {
   const [category, setCategory] = useState("");
   const [openGuildsModal, setOpenGuildsModal] = useState(false);
   const [guild, setGuild] = useState<GuildProps>({} as GuildProps);
@@ -62,7 +64,7 @@ export function AppointmentCreate() {
       guild,
       category,
       date: `${day}/${month} às ${hour}:${minute}h`,
-      description
+      description,
     };
 
     const storage = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
@@ -73,8 +75,8 @@ export function AppointmentCreate() {
       JSON.stringify([...appointments, newAppointment])
     );
 
-    navigation.navigate('Home');   
-  }
+    navigation.navigate("Home");
+  };
 
   return (
     <KeyboardAvoidingView
@@ -175,4 +177,6 @@ export function AppointmentCreate() {
       </ModalView>
     </KeyboardAvoidingView>
   );
-}
+};
+
+export default AppointmentCreate;

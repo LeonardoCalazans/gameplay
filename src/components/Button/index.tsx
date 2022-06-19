@@ -8,10 +8,12 @@ type props = RectButtonProps & {
   title: string;
 };
 
-export function Button({ title, ...rest }: props) {
+const Button = ({ title, ...rest }: props) => {
   return (
     <RectButton style={styles.container} {...rest}>
       <Text style={styles.title}>{title}</Text>
     </RectButton>
   );
-}
+};
+
+export default Button;

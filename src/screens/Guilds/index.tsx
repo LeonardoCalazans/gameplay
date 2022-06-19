@@ -2,18 +2,16 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { View, FlatList } from "react-native";
 
-import { Guild, GuildProps } from "../../components/Guild";
-import { Load } from "../../components/Load";
-import { ListDivider } from "../../components/ListDivider";
-
 import { styles } from "./styles";
 import { api } from "../../services/api";
+import Guild, { GuildProps } from "../../components/Guild";
+import { ListDivider, Load } from "../../components";
 
 type Props = {
   handleGuildSelect: (guild: GuildProps) => void;
 };
 
-export function Guilds({ handleGuildSelect }: Props) {
+const Guilds = ({ handleGuildSelect }: Props) => {
   const [guilds, setGuilds] = useState<GuildProps[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -47,4 +45,6 @@ export function Guilds({ handleGuildSelect }: Props) {
       )}
     </View>
   );
-}
+};
+
+export default Guilds;

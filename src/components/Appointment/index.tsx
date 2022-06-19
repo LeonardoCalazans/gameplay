@@ -11,11 +11,10 @@ import { theme } from "../../global/styles/theme";
 import { styles } from "./styles";
 import PlayerSvg from "../../assets/player.svg";
 import CalendarSvg from "../../assets/calendar.svg";
-
-import { GuildProps } from "../Guild";
-import { GuildIcon } from "../GuildIcon";
 import { categories } from "../../ultis/categories";
 import { Fontisto } from "@expo/vector-icons";
+import { GuildIcon } from "..";
+import { GuildProps } from "../Guild";
 
 export type AppointmentProps = {
   id: string;
@@ -27,10 +26,10 @@ export type AppointmentProps = {
 
 type Props = RectButtonProps & {
   data: AppointmentProps;
-  deleteAppointment: (id: AppointmentProps['id']) => void;
+  deleteAppointment: (id: AppointmentProps["id"]) => void;
 };
 
-export function Appointment({ data, deleteAppointment, ...rest }: Props) {
+const Appointment = ({ data, deleteAppointment, ...rest }: Props) => {
   const [category] = categories.filter(
     (item: { id: string }) => item.id === data.category
   );
@@ -81,4 +80,6 @@ export function Appointment({ data, deleteAppointment, ...rest }: Props) {
       </View>
     </RectButton>
   );
-}
+};
+
+export default Appointment;

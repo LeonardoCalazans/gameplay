@@ -11,7 +11,7 @@ type Props = {
   iconId: string | null;
 };
 
-export function GuildIcon({ guildId, iconId }: Props) {
+const GuildIcon = ({ guildId, iconId }: Props) => {
   const uri = `${CDN_IMAGE}/icons/${guildId}/${iconId}.png`;
   return (
     <View style={styles.container}>
@@ -23,3 +23,5 @@ export function GuildIcon({ guildId, iconId }: Props) {
     </View>
   );
 }
+
+export default GuildIcon;

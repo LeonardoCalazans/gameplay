@@ -9,7 +9,7 @@ type props = RectButtonProps & {
   title: string;
 };
 
-export function ButtonIcon({ title, ...rest }: props) {
+const ButtonIcon = ({ title, ...rest }: props) => {
   return (
     <RectButton style={styles.container} {...rest}>
       <View style={styles.iconWrapper}>
@@ -18,4 +18,6 @@ export function ButtonIcon({ title, ...rest }: props) {
       <Text style={styles.title}>{title}</Text>
     </RectButton>
   );
-}
+};
+
+export default ButtonIcon;

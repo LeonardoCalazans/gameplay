@@ -8,7 +8,7 @@ import {
 import { styles } from './styles';
 import { theme } from '../../global/styles/theme';
 
-export function Load(){
+const Load = () => {
   return (
     <View style={styles.container}>
       <ActivityIndicator 
@@ -18,3 +18,5 @@ export function Load(){
     </View>
   );
 }
+
+export default Load;

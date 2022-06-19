@@ -8,10 +8,10 @@ type Props = {
   subtitle: string;
 }
 
-export function ListHeader({ 
+const ListHeader = ({ 
   title,
   subtitle
- }: Props) {
+ }: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -24,3 +24,5 @@ export function ListHeader({
     </View>
   )
 }
+
+export default ListHeader;

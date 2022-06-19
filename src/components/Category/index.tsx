@@ -13,13 +13,13 @@ type Props = RectButtonProps & {
   hasCheckBox?: boolean;
   checked: boolean;
 };
-export function Category({
+const Category = ({
   title,
   icon: Icon,
   hasCheckBox = false,
   checked = false,
   ...rest
-}: Props) {
+}: Props) => {
   const { secondary85, secondary70, secondary50, secondary40 } = theme.colors;
 
   return (
@@ -42,3 +42,5 @@ export function Category({
     </RectButton>
   );
 }
+
+export default Category;
