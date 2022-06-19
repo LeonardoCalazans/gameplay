@@ -19,11 +19,12 @@ import {
   TextArea,
 } from "../../components";
 import { styles } from "./styles";
+import { theme } from "../../global/styles/theme";
 import uuid from "react-native-uuid";
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { theme } from "../../global/styles/theme";
+import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { COLLECTION_APPOINTMENTS } from "../../configs/database";
 import { GuildProps } from "../../components/Guild";
 import { Guilds } from "..";
@@ -34,11 +35,15 @@ const AppointmentCreate = () => {
   const [guild, setGuild] = useState<GuildProps>({} as GuildProps);
   const navigation = useNavigation();
 
-  //adicionar validação
-  const [day, setDay] = useState("");
-  const [month, setMonth] = useState("");
-  const [hour, setHour] = useState("");
-  const [minute, setMinute] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(false);
+
+  //criar função Short Date e short Time
+  const [day, setDay] = useState(Number);
+  const [month, setMonth] = useState(Number);
+  const [hour, setHour] = useState(Number);
+  const [minute, setMinute] = useState(Number);
   const [description, setDescription] = useState("");
 
   const handleOpenGuilds = () => {
@@ -76,6 +81,33 @@ const AppointmentCreate = () => {
     );
 
     navigation.navigate("Home");
+  };
+
+  const onChange = (event: DateTimePickerEvent, selectedDate: Date) => {
+    const currentDate = selectedDate;
+    setShow(false);
+    setDate(currentDate);
+    if (mode === "date") {
+      setDay(selectedDate.getDate());
+      setMonth(selectedDate.getMonth());
+    }
+    if (mode === "time") {
+      setHour(selectedDate.getHours());
+      setMinute(selectedDate.getMinutes());
+    }
+  };
+
+  const showMode = (currentMode: React.SetStateAction<string>) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode("date");
+  };
+
+  const showTimepicker = () => {
+    showMode("time");
   };
 
   return (
@@ -127,28 +159,41 @@ const AppointmentCreate = () => {
 
             <View style={styles.field}>
               <View>
-                <Text style={[styles.label, { marginBottom: 12 }]}>
-                  Dia e mês
-                </Text>
+                <RectButton onPress={showDatepicker}>
+                  <Text style={[styles.label, { marginBottom: 12 }]}>
+                    Dia e mês
+                  </Text>
 
-                <View style={styles.column}>
-                  <SmallInput maxLength={2} onChangeText={setDay} />
-                  <Text style={styles.divider}>/</Text>
-                  <SmallInput maxLength={2} onChangeText={setMonth} />
-                </View>
+                  <View style={styles.column}>
+                    <SmallInput text={day !== 0 ? day.toString() : ""} />
+                    <Text style={styles.divider}>/</Text>
+                    <SmallInput text={month !== 0 ? month.toString() : ""} />
+                  </View>
+                </RectButton>
               </View>
 
               <View>
-                <Text style={[styles.label, { marginBottom: 12 }]}>
-                  Hora e minuto
-                </Text>
+                <RectButton onPress={showTimepicker}>
+                  <Text style={[styles.label, { marginBottom: 12 }]}>
+                    Hora e minuto
+                  </Text>
 
-                <View style={styles.column}>
-                  <SmallInput maxLength={2} onChangeText={setHour} />
-                  <Text style={styles.divider}>:</Text>
-                  <SmallInput maxLength={2} onChangeText={setMinute} />
-                </View>
+                  <View style={styles.column}>
+                    <SmallInput text={hour !== 0 ? hour.toString() : ""} />
+                    <Text style={styles.divider}>:</Text>
+                    <SmallInput text={minute !== 0 ? minute.toString() : ""} />
+                  </View>
+                </RectButton>
               </View>
+              {show && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={date}
+                  mode={mode}
+                  is24Hour={true}
+                  onChange={onChange}
+                />
+              )}
             </View>
 
             <View style={[styles.field, { marginBottom: 12 }]}>
