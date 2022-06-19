@@ -50,9 +50,9 @@ export function AppointmentDetails() {
         `/guilds/${guildSelected.guild.id}/widget.json`
       );
       setWidget(response.data);
-    } catch {
+    } catch (error) {
       Alert.alert(
-        "Verifique as configurações do servidor. Será que o Widget está habilitado?"
+        "Verifique as configurações do servidor, Widget está habilitado?"
       );
     } finally {
       setLoading(false);
@@ -84,7 +84,7 @@ export function AppointmentDetails() {
       <Header
         title="Detalhes"
         action={
-          guildSelected.guild.owner && (
+          widget.instant_invite && (
             <BorderlessButton onPress={handleShareInvitation}>
               <Fontisto name="share" size={24} color={theme.colors.primary} />
             </BorderlessButton>
@@ -106,7 +106,7 @@ export function AppointmentDetails() {
         <>
           <ListHeader
             title="Jogadores"
-            subtitle={`Total ${widget.members.length}`}
+            subtitle={`Total ${!!widget.id ? widget.members.length : ""}`}
           />
 
           <FlatList
@@ -119,7 +119,7 @@ export function AppointmentDetails() {
         </>
       )}
 
-      {guildSelected.guild.owner && (
+      {widget.instant_invite && (
         <View style={styles.footer}>
           <ButtonIcon title="Entrar na partida" onPress={handleOpenGuild} />
         </View>
