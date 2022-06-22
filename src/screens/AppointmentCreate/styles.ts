@@ -1,5 +1,8 @@
+import styled, { css } from 'styled-components';
 import { StyleSheet } from 'react-native';
 import { theme } from '../../global/styles/theme';
+
+import { Feather } from "@expo/vector-icons";
 
 export const styles = StyleSheet.create({
   container: {
@@ -63,3 +66,9 @@ export const styles = StyleSheet.create({
     marginBottom: 56,
   }
 });
+
+export const Icon = styled(Feather).attrs({
+  name: "chevron-right",
+  color: theme.colors.heading,
+  size: 18,
+})``;
