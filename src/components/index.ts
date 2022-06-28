@@ -1,6 +1,7 @@
 export { default as Appointment } from './Appointment';
 export { default as Avatar } from './Avatar';
 export { default as Background } from './Background';
+export { default as BottomModal } from './Modal';
 export { default as Button } from './Button';
 export { default as ButtonAdd } from './ButtonAdd';
 export { default as ButtonIcon } from './ButtonIcon';
@@ -17,3 +18,6 @@ export { default as ModalView } from './ModalView';
 export { default as Profile } from './Profile';
 export { default as SmallInput } from './SmallInput';
 export { default as TextArea } from './TextArea';
+export { default as Touchable } from './Touchable';
+export { default as Typography } from './Typography';
+export { default as If } from './If';
