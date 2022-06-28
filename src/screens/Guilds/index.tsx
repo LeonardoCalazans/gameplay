@@ -4,15 +4,15 @@ import { View, FlatList } from "react-native";
 
 import { styles } from "./styles";
 import { api } from "../../services/api";
-import Guild, { GuildProps } from "../../components/Guild";
+import Guild from "../../components/Guild";
 import { ListDivider, Load } from "../../components";
 
 type Props = {
-  handleGuildSelect: (guild: GuildProps) => void;
+  handleGuildSelect: (guild: GuildType) => void;
 };
 
 const Guilds = ({ handleGuildSelect }: Props) => {
-  const [guilds, setGuilds] = useState<GuildProps[]>([]);
+  const [guilds, setGuilds] = useState<GuildType[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchGuilds = async () => {

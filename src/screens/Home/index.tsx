@@ -5,7 +5,7 @@ import { styles } from "./styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { COLLECTION_APPOINTMENTS } from "../../configs/database";
-import Appointment, { AppointmentProps } from "../../components/Appointment";
+import Appointment from "../../components/Appointment";
 import {
   Background,
   ButtonAdd,
@@ -20,17 +20,17 @@ const Home = () => {
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
-  const [appointments, setAppointments] = useState<AppointmentProps[]>([]);
+  const [appointments, setAppointments] = useState<AppointmentType[]>([]);
 
   const handleCategorySelect = (categoryId: string) => {
     categoryId === category ? setCategory("") : setCategory(categoryId);
   };
 
-  const handleAppointmentDetails = (guildSelected: AppointmentProps) => {
+  const handleAppointmentDetails = (guildSelected: AppointmentType) => {
     navigation.navigate("AppointmentDetails", { guildSelected });
   };
 
-  const deleteAppointment = async (id: AppointmentProps["id"]) => {
+  const deleteAppointment = async (id: AppointmentType["id"]) => {
     Alert.alert("Delete", "Deseja realmente deletar?", [
       {
         text: "Não",
@@ -40,7 +40,7 @@ const Home = () => {
         text: "Sim",
         onPress: async () => {
           const response = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
-          const storage: AppointmentProps[] = response
+          const storage: AppointmentType[] = response
             ? JSON.parse(response)
             : [];
           const storage2 = storage.filter((item) => {
@@ -62,7 +62,7 @@ const Home = () => {
 
   const loadAppointments = async () => {
     const response = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
-    const storage: AppointmentProps[] = response ? JSON.parse(response) : [];
+    const storage: AppointmentType[] = response ? JSON.parse(response) : [];
     if (category) {
       setAppointments(storage.filter((item) => item.category === category));
     } else {

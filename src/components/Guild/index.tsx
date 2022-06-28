@@ -12,15 +12,9 @@ import { theme } from "../../global/styles/theme";
 
 import { GuildIcon } from "..";
 
-export type GuildProps = {
-  id: string;
-  name: string;
-  icon: string | null;
-  owner: boolean;
-};
 
 type Props = TouchableOpacityProps & {
-  data: GuildProps;
+  data: GuildType;
 };
 
 const Guild = ({ data, ...rest }: Props) => {

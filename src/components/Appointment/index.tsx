@@ -11,22 +11,13 @@ import { theme } from "../../global/styles/theme";
 import { styles } from "./styles";
 import PlayerSvg from "../../assets/player.svg";
 import CalendarSvg from "../../assets/calendar.svg";
-import { categories } from "../../ultis/categories";
+import { categories } from "../../ultis/consts/categories.consts";
 import { Fontisto } from "@expo/vector-icons";
 import { GuildIcon } from "..";
-import { GuildProps } from "../Guild";
-
-export type AppointmentProps = {
-  id: string;
-  guild: GuildProps;
-  category: string;
-  date: string;
-  description: string;
-};
 
 type Props = RectButtonProps & {
-  data: AppointmentProps;
-  deleteAppointment: (id: AppointmentProps["id"]) => void;
+  data: AppointmentType;
+  deleteAppointment: (id: AppointmentType["id"]) => void;
 };
 
 const Appointment = ({ data, deleteAppointment, ...rest }: Props) => {
