@@ -18,7 +18,6 @@ import BannerImg from "../../assets/banner.png";
 
 import { api } from "../../services/api";
 import { useRoute } from "@react-navigation/native";
-import { AppointmentProps } from "../../components/Appointment";
 import Member, { MemberProps } from "../../components/Member";
 import {
   Background,
@@ -30,7 +29,7 @@ import {
 } from "../../components";
 
 type Params = {
-  guildSelected: AppointmentProps;
+  guildSelected: AppointmentType;
 };
 
 type GuildWidget = {
