@@ -1,7 +1,6 @@
 export { default as Appointment } from './Appointment';
 export { default as Avatar } from './Avatar';
 export { default as Background } from './Background';
-export { default as BottomModal } from './Modal';
 export { default as Button } from './Button';
 export { default as ButtonAdd } from './ButtonAdd';
 export { default as ButtonIcon } from './ButtonIcon';
