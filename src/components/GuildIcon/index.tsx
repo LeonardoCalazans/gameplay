@@ -2,7 +2,7 @@ import React from "react";
 import { Image, View } from "react-native";
 
 import { styles } from "./styles";
-import DiscordSvg from "../../assets/images/discord.svg";
+import DiscordSvg from "../../assets/svg/discord.svg";
 
 const { CDN_IMAGE } = process.env;
 
@@ -22,6 +22,6 @@ const GuildIcon = ({ guildId, iconId }: Props) => {
       )}
     </View>
   );
-}
+};
 
 export default GuildIcon;
