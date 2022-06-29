@@ -14,7 +14,7 @@ import * as Linking from "expo-linking";
 
 import { theme } from "../../global/styles/theme";
 import { styles } from "./styles";
-import BannerImg from "../../assets/banner.png";
+import BannerImg from "../../assets/images/banner.png";
 
 import { api } from "../../services/api";
 import { useRoute } from "@react-navigation/native";

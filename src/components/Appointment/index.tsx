@@ -9,11 +9,11 @@ import { View, Text } from "react-native";
 
 import { theme } from "../../global/styles/theme";
 import { styles } from "./styles";
-import PlayerSvg from "../../assets/player.svg";
-import CalendarSvg from "../../assets/calendar.svg";
+import PlayerSvg from "../../assets/svg/player.svg";
+import CalendarSvg from "../../assets/svg/calendar.svg";
 import { categories } from "../../ultis/consts/categories.consts";
 import { Fontisto } from "@expo/vector-icons";
-import { GuildIcon } from "..";
+import GuildIcon from "../GuildIcon";
 
 type Props = RectButtonProps & {
   data: AppointmentType;

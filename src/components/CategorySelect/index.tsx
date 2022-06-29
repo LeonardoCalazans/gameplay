@@ -4,7 +4,7 @@ import { ScrollView } from "react-native";
 import { styles } from "./styles";
 import { categories } from "../../ultis/consts/categories.consts";
 
-import { Category } from "..";
+import Category from "../Category";
 
 type Props = {
   categorySelected: string;
@@ -36,6 +36,6 @@ const CategorySelect = ({
       ))}
     </ScrollView>
   );
-}
+};
 
 export default CategorySelect;

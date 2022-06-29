@@ -8,7 +8,7 @@ import {
   Button,
 } from "react-native";
 
-import IllustrationImg from "../../assets/illustration.png";
+import IllustrationImg from "../../assets/images/illustration.png";
 import { styles } from "./styles";
 import { useAuth } from "../../hooks/auth";
 import { theme } from "../../global/styles/theme";
@@ -51,6 +51,6 @@ const SignIn = () => {
       </View>
     </Background>
   );
-}
+};
 
 export default SignIn;
