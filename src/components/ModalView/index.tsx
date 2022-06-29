@@ -8,7 +8,7 @@ import {
 
 import { styles } from "./styles";
 
-import { Background } from "..";
+import Background from "../Background";
 
 type Props = ModalProps & {
   children: ReactNode;
