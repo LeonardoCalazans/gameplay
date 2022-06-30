@@ -4,18 +4,18 @@ import { styles } from "./styles";
 import { theme } from "../../global/styles/theme";
 
 type Props = {
-  children?: ReactNode;
+  onLayout?: () => void;
 };
 
-const Background = ({ children }: Props) => {
+const Background: React.FC<Props> = ({ children, onLayout }) => {
   const { secondary80, secondary100 } = theme.colors;
   return (
     <LinearGradient
       style={styles.container}
       colors={[secondary80, secondary100]}
-    >
-      {children}
-    </LinearGradient>
+      onLayout={onLayout}
+      children={children as any}
+    />
   );
 }
 
