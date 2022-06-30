@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { styles } from "./styles";
-import { Avatar } from "..";
+import Avatar from "../Avatar";
 import { theme } from "../../global/styles/theme";
 
 export type MemberProps = {
@@ -39,6 +39,6 @@ const Member = ({ data }: Props) => {
       </View>
     </View>
   );
-}
+};
 
 export default Member;
