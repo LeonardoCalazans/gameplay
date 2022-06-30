@@ -1,8 +1,8 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components/native';
 import { StyleSheet } from 'react-native';
 import { theme } from '../../global/styles/theme';
-
 import { Feather } from "@expo/vector-icons";
+import { Typography, Touchable, SmallInput } from '../../components';
 
 export const styles = StyleSheet.create({
   container: {
@@ -67,8 +67,29 @@ export const styles = StyleSheet.create({
   }
 });
 
+export const InputDate = styled(SmallInput).attrs({
+})`
+  background-color: '#498545';
+  color: '#498545';
+`;
+
 export const Icon = styled(Feather).attrs({
   name: "chevron-right",
   color: theme.colors.heading,
   size: 18,
 })``;
+
+export const LineWrapper = styled.View`
+  background-color: ${theme.colors.secondary30};
+`;
+
+export const TouchableButton = styled(Touchable)`
+  padding: 30px 32px;
+  align-self: flex-end;
+`;
+
+export const TextButtonIOS = styled(Typography).attrs({})`
+  color: ${theme.colors.heading};
+  text-align: right;
+  font-weight: bold;
+`;

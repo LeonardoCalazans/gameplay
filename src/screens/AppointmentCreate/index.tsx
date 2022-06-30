@@ -13,27 +13,33 @@ import {
   CategorySelect,
   GuildIcon,
   Header,
+  If,
   ModalView,
-  SmallInput,
   TextArea,
 } from "../../components";
-import { styles, Icon } from "./styles";
+import {
+  styles,
+  Icon,
+  LineWrapper,
+  TouchableButton,
+  TextButtonIOS,
+  InputDate,
+} from "./styles";
 import uuid from "react-native-uuid";
 import { useNavigation } from "@react-navigation/native";
 
-import DateTimePicker, {
+import RNDateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { COLLECTION_APPOINTMENTS } from "../../configs/database";
-import { GuildProps } from "../../components/Guild";
-import { Guilds } from "..";
+import Guilds from "../Guilds";
 
 type AppointmentCreate = {
   date: Date;
   hour: Date;
   category: string;
-  guild: GuildProps;
+  guild: GuildType;
   description: string;
 };
 
@@ -42,15 +48,17 @@ const AppointmentCreate = () => {
   const navigation = useNavigation();
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
+  const [alert, setAlert] = useState(false);
   const [appointment, setAppointment] = useState<AppointmentCreate>({
-    guild: {} as GuildProps,
+    guild: {} as GuildType,
   } as AppointmentCreate);
+  const displayPicker = Platform.OS === "ios" ? "spinner" : "default";
 
   const handleOpenGuilds = () => {
     setOpenGuildsModal(true);
   };
 
-  const handleGuildSelect = (guildsSelect: GuildProps) => {
+  const handleGuildSelect = (guildsSelect: GuildType) => {
     setAppointment({
       ...appointment,
       guild: guildsSelect,
@@ -90,7 +98,10 @@ const AppointmentCreate = () => {
     navigation.navigate("Home");
   };
 
-  const onChange = ({ type }: DateTimePickerEvent, selectedDate: Date) => {
+  const onChangeDateAndroid = (
+    { type }: DateTimePickerEvent,
+    selectedDate: Date
+  ) => {
     if (mode === "date" && type === "set") {
       setAppointment({
         ...appointment,
@@ -103,20 +114,63 @@ const AppointmentCreate = () => {
         hour: selectedDate,
       });
     }
+    setAlert(false);
     setShow(false);
   };
 
-  const showMode = (currentMode: React.SetStateAction<string>) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
   const showDatepicker = () => {
-    showMode("date");
+    setShow(true);
+    setMode("date");
   };
 
   const showTimepicker = () => {
-    showMode("time");
+    setShow(true);
+    setMode("time");
+  };
+
+  const onChangeDatePicker = (
+    event: DateTimePickerEvent,
+    date: Date | undefined
+  ) => {
+    if (date && Platform.OS !== "ios") onChangeDateAndroid(event, date);
+    if (date && Platform.OS === "ios") onChangeDateIOS(event, date);
+  };
+
+  const closeButtonIOS = () => {
+    if (mode === "date") {
+      setAppointment({
+        ...appointment,
+        date: new Date(),
+      });
+    }
+    if (mode === "time") {
+      setAppointment({
+        ...appointment,
+        hour: new Date(),
+      });
+    }
+    setShow(false);
+    setAlert(false);
+  };
+
+  const onChangeDateIOS = (
+    _event: DateTimePickerEvent,
+    selectedDate: Date
+  ): void => {
+    if (mode === "date") {
+      setAppointment({
+        ...appointment,
+        date: selectedDate,
+      });
+    }
+    if (mode === "time") {
+      setAppointment({
+        ...appointment,
+        hour: selectedDate,
+      });
+    }
+    setShow(false);
+    setAlert(false);
   };
 
   return (
@@ -175,7 +229,7 @@ const AppointmentCreate = () => {
                     </Text>
 
                     <View style={styles.column}>
-                      <SmallInput
+                      <InputDate
                         text={
                           appointment.date
                             ? appointment.date.getDate().toString()
@@ -183,7 +237,7 @@ const AppointmentCreate = () => {
                         }
                       />
                       <Text style={styles.divider}>/</Text>
-                      <SmallInput
+                      <InputDate
                         text={
                           appointment.date
                             ? appointment.date.getMonth().toString()
@@ -201,7 +255,7 @@ const AppointmentCreate = () => {
                     </Text>
 
                     <View style={styles.column}>
-                      <SmallInput
+                      <InputDate
                         text={
                           appointment.hour
                             ? appointment.hour.getHours().toString()
@@ -209,7 +263,7 @@ const AppointmentCreate = () => {
                         }
                       />
                       <Text style={styles.divider}>:</Text>
-                      <SmallInput
+                      <InputDate
                         text={
                           appointment.hour
                             ? appointment.hour.getMinutes().toString()
@@ -252,15 +306,20 @@ const AppointmentCreate = () => {
         </ModalView>
       </KeyboardAvoidingView>
       {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={new Date()}
-          display={Platform.OS === "ios" ? "spinner" : "default"}
-          mode={mode}
-          onChange={(event: DateTimePickerEvent, date) => {
-            date && onChange(event, date);
-          }}
-        />
+        <LineWrapper>
+          <If condition={Platform.OS === "ios"}>
+            <TouchableButton onPress={closeButtonIOS}>
+              <TextButtonIOS>OK</TextButtonIOS>
+            </TouchableButton>
+          </If>
+          <RNDateTimePicker
+            testID="dateTimePicker"
+            value={new Date()}
+            display={displayPicker}
+            mode={mode}
+            onChange={onChangeDatePicker}
+          />
+        </LineWrapper>
       )}
     </>
   );
