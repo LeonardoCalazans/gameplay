@@ -1,28 +1,27 @@
-import React from "react";
-import { View, Text, Alert } from "react-native";
+import React, { useState } from "react";
+import { View, Text } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import { useAuth } from "../../hooks/auth";
-import { Avatar } from "..";
+import Avatar from "../Avatar";
+import ModalView from "../ModalView";
 import { styles } from "./styles";
+import Logout from "../Logout";
 
 const Profile = () => {
   const { user, singOut } = useAuth();
-  function handleSignOut() {
-    Alert.alert("Logout", "Deseja sair do GamePlay?", [
-      {
-        text: "Não",
-        style: "cancel",
-      },
-      {
-        text: "Sim",
-        onPress: () => singOut(),
-      },
-    ]);
-  }
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
 
   return (
     <View style={styles.container}>
-      <RectButton onPress={handleSignOut}>
+      <RectButton onPress={handleOpenModal}>
         <Avatar urlImage={user.avatar} />
       </RectButton>
 
@@ -33,8 +32,11 @@ const Profile = () => {
         </View>
         <Text style={styles.message}>Hoje é dia de vitória</Text>
       </View>
+      <ModalView visible={modalVisible} onRequestClose={handleCloseModal}>
+        <Logout goBack={handleCloseModal} goConfirm={singOut} />
+      </ModalView>
     </View>
   );
-}
+};
 
 export default Profile;
