@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { StatusBar, View, Text } from "react-native";
+import { StatusBar } from "react-native";
 import { Inter_400Regular, Inter_500Medium } from "@expo-google-fonts/inter";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -11,6 +11,8 @@ import {
 import { AuthProvider } from "./src/hooks/auth";
 import Routes from "./src/routes";
 import { Background } from "./src/components";
+import { ThemeProvider } from "styled-components/native";
+import { theme } from "./src/global/styles/theme";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -47,17 +49,17 @@ const App = () => {
   }
 
   return (
-    <Background
-      onLayout={onLayoutRootView}
-    >
-      <AuthProvider>
+    <Background onLayout={onLayoutRootView}>
+      <ThemeProvider theme={theme}>
         <StatusBar
           barStyle="light-content"
           backgroundColor="transparent"
           translucent
         />
-        <Routes />
-      </AuthProvider>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
+      </ThemeProvider>
     </Background>
   );
 };
