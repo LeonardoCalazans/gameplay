@@ -1,10 +1,20 @@
 import React from "react";
-import { TextInput, TextInputProps } from "react-native";
+import { TextInputProps } from "react-native";
+import { Wrapper } from "./styles";
 
-import { styles } from "./styles";
+interface Props extends TextInputProps {
+  active?: boolean;
+}
 
-const TextArea = ({ ...rest }: TextInputProps) => {
-  return <TextInput style={styles.container} {...rest} />;
+const TextArea = ({ active = false, ...rest }: Props) => {
+  return (
+    <Wrapper
+      testID="textArea"
+      active={active}
+      keyboardType={"default"}
+      {...rest}
+    />
+  );
 };
 
 export default TextArea;

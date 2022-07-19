@@ -1,13 +1,10 @@
-import React, { FC } from 'react';
-
-import { Text } from './styles';
+import React, { FC } from "react";
+import { Text } from "./styles";
 
 const Typography: FC<TypographyType> = ({
-  style = [{}],
   textRef = React.createRef(),
-  variant = 'body',
   children,
-  id,
+  id = "typography",
   ...rest
 }) => (
   <Text
@@ -15,8 +12,6 @@ const Typography: FC<TypographyType> = ({
     accessibility={`${children}`}
     accessibilityLabel={`${children}`}
     ref={textRef}
-    style={style}
-    variant={variant}
     {...rest}
   >
     {children}
