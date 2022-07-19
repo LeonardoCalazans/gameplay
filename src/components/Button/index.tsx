@@ -10,7 +10,7 @@ type props = RectButtonProps & {
 
 const Button = ({ title, ...rest }: props) => {
   return (
-    <RectButton style={styles.container} {...rest}>
+    <RectButton testID="button" style={styles.container} {...rest}>
       <Text style={styles.title}>{title}</Text>
     </RectButton>
   );
