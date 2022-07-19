@@ -199,7 +199,7 @@ const AppointmentCreate = () => {
             />
 
             <View style={styles.form}>
-              <RectButton onPress={handleOpenGuilds}>
+              <RectButton testID="button-guilds" onPress={handleOpenGuilds}>
                 <View style={styles.select}>
                   {appointment.guild.icon ? (
                     <GuildIcon
@@ -282,6 +282,7 @@ const AppointmentCreate = () => {
               </View>
 
               <TextArea
+                testID="input-description"
                 multiline
                 maxLength={100}
                 numberOfLines={5}
@@ -301,7 +302,7 @@ const AppointmentCreate = () => {
           </ScrollView>
         </Background>
 
-        <ModalView visible={openGuildsModal}>
+        <ModalView testID='modal-guilds' visible={openGuildsModal}>
           <Guilds handleGuildSelect={handleGuildSelect} />
         </ModalView>
       </KeyboardAvoidingView>
