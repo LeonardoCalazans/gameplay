@@ -80,8 +80,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         await AsyncStorage.setItem(COLLECTION_USERS, JSON.stringify(userData));
         setUser(userData);
       }
-    } catch {
-      throw new Error("Não foi possível autenticar");
+    } catch (error) {
+      throw new Error(`Não foi possível autenticar. ${error}`);
     } finally {
       setLoading(false);
     }
