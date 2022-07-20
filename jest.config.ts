@@ -21,12 +21,15 @@ const config: Config.InitialOptions = {
     ],
     collectCoverage: true,
     collectCoverageFrom: [
-        "**/*.{js,jsx}",
+        "src/**/*.{ts,tsx}",
+        "!src/**/*.spec.{ts,tsx}",
+        "!src/**/*.test.{ts,tsx}",
         "!**/coverage/**",
         "!**/node_modules/**",
         "!**/babel.config.js",
         "!**/jest.setup.js"
     ],
+    coverageReporters: ["lcov"],
     setupFilesAfterEnv: [
         "./jestSetupFile.js",
         "@testing-library/jest-native/extend-expect",
