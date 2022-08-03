@@ -28,4 +28,6 @@ describe("Component TextArea", () => {
     expect(getByTestId("textArea")).toBeTruthy();
     expect(textArea.props.style[0].borderColor).toEqual(theme.colors.primary);
   });
+
+  //criar o active quando false
 });

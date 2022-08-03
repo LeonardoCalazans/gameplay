@@ -8,6 +8,7 @@ const config: Config.InitialOptions = {
     preset: "jest-expo",
     testPathIgnorePatterns: [
         "/node_modules",
+        "src/__tests__/mocks",
         "/android",
         "/ios",
     ],
@@ -22,14 +23,11 @@ const config: Config.InitialOptions = {
     collectCoverage: true,
     collectCoverageFrom: [
         "src/**/*.{ts,tsx}",
-        "!src/**/*.spec.{ts,tsx}",
-        "!src/**/*.test.{ts,tsx}",
         "!**/coverage/**",
         "!**/node_modules/**",
         "!**/babel.config.js",
         "!**/jest.setup.js"
     ],
-    coverageReporters: ["lcov"],
     setupFilesAfterEnv: [
         "./jestSetupFile.js",
         "@testing-library/jest-native/extend-expect",

@@ -1,0 +1,1 @@
+export const makeValidMockLinearGradientTestID = (colors: String[]) => `mocked-linear-gradient${colors.join('')}`;

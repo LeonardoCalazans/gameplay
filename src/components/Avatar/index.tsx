@@ -13,10 +13,15 @@ const Avatar = ({ urlImage }: Props) => {
 
   return (
     <LinearGradient
+      testID="avatar"
       style={styles.container}
       colors={[secondary70, secondary50]}
     >
-      <Image source={{ uri: urlImage }} style={styles.avatar} />
+      <Image
+        testID={urlImage}
+        source={{ uri: urlImage }}
+        style={styles.avatar}
+      />
     </LinearGradient>
   );
 };

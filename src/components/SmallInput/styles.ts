@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 import { scale, moderateScale } from 'react-native-size-matters';
 import Typography from '../Typography';
 
-
 export const Wrapper = styled.View`
   justify-content: center;
   width: ${scale(48)}px;
