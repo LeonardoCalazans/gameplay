@@ -1,27 +1,28 @@
-import { mockFontisto, mockLinearGradient } from "../../__tests__/mocks";
+import { makeValidMockLinearGradientTestID } from "../../__tests__/mocks/utils";
+import {
+  mockFontisto,
+  mockGuildIcons,
+  mockLinearGradient,
+} from "../../__tests__/mocks";
 import React from "react";
+import Svg from "react-native-svg";
 import { render } from "@testing-library/react-native";
+import { ReactTestInstance } from "react-test-renderer";
 import Appointment from ".";
-import { View } from "react-native";
 import { theme } from "../../global/styles/theme";
-import GuildIcon from "../GuildIcon";
-import { categories } from "../../ultis";
 
 jest.mock("expo-linear-gradient", () => ({
   LinearGradient: mockLinearGradient,
 }));
-
 jest.mock("@expo/vector-icons", () => ({
   Fontisto: mockFontisto,
 }));
+jest.mock("../GuildIcon", () => mockGuildIcons);
+const deleteAppointment = jest.fn();
+const mockSvg = jest.fn(() => <Svg testID="mocked-svg" />);
 
-// jest.mock("../GuildIcon", () => {
-//   return {
-//     GuildIcon: () => {
-//       return <GuildIcon guildId={""} iconId={null} />;
-//     },
-//   };
-// });
+const makeValidMockOwnerTestID = (colors: String[]) =>
+  `appointment-owner-test${colors.join("")}`;
 
 const dataMock = {
   id: "test-id-data",
@@ -35,19 +36,9 @@ const dataMock = {
   date: "2020-01-01",
   description: "test-description",
 };
+const categoryMock = { id: "1", title: "Ranqueada", icon: mockSvg };
 
-const deleteAppointment = async (id: AppointmentType["id"]) => {
-  console.log(id);
-};
-
-const [categoryMock] = categories.filter((item: { id: string }) => {
-  return item.id === dataMock.category;
-});
-
-const makeValidMockOwnerTestID = (colors: String[]) =>
-  `appointment-owner-test${colors.join("")}`;
-
-const { primary, on } = theme.colors;
+const { secondary70, secondary50, primary, on } = theme.colors;
 
 describe("Component Appointment", () => {
   beforeEach(() => {
@@ -65,80 +56,136 @@ describe("Component Appointment", () => {
 
   it("should render correctly", () => {
     const { getByTestId } = render(
-      <Appointment data={dataMock} deleteAppointment={deleteAppointment} />
+      <Appointment data={dataMock} deleteAppointment={jest.fn()} />
     );
 
     expect(getByTestId("appointment")).toBeTruthy();
   });
 
-  it("should render correctly LinearGradient and GuildIcon", () => {
+  it("should render correctly LinearGradient", () => {
     const { getByTestId } = render(
       <Appointment data={dataMock} deleteAppointment={deleteAppointment} />
     );
+
+    expect(
+      getByTestId(makeValidMockLinearGradientTestID([secondary50, secondary70]))
+    ).toBeTruthy();
   });
 
-  it("should render correctly guild name", () => {
-    const { getByText } = render(
+  it("should render correctly guildIcon", () => {
+    const { getByText, getByTestId } = render(
       <Appointment data={dataMock} deleteAppointment={deleteAppointment} />
     );
 
+    expect(
+      getByTestId(
+        `mocked-guild-icons${dataMock.guild.id}${dataMock.guild.icon}`
+      )
+    ).toBeTruthy();
     expect(getByText(dataMock.guild.name)).toBeTruthy();
   });
 
-  it("should render correctly if title category existed", () => {
-    const { getByText } = render(
-      <Appointment data={dataMock} deleteAppointment={deleteAppointment} />
-    );
-    expect(getByText(categoryMock.title)).toBeTruthy();
-  });
-  //porque não funciona?
-  it("should not render if title category not existed", () => {
-    dataMock.category = "";
-
-    const { getByText } = render(
+  it("should render category title", () => {
+    const { getByTestId } = render(
       <Appointment data={dataMock} deleteAppointment={deleteAppointment} />
     );
 
-    console.log(dataMock.category);
-    console.log(categoryMock.title);
+    const textCategoryTitle = getByTestId("appointment-category-title");
 
-    expect(getByText(categoryMock.title)).toBeUndefined();
-    expect(getByText("")).toBeTruthy();
+    expect(textCategoryTitle.children[0]).toBe(categoryMock.title);
   });
-  //a fazer
-  it("should render correctly icon trash in fontisto", () => {});
-  //adicionar verificação de svg
-  it("should render correctly date text and svg", () => {
-    const { getByText } = render(
+
+  it("should not render category title when category is not defined", () => {
+    dataMock.category = undefined as any;
+    const { getByTestId } = render(
       <Appointment data={dataMock} deleteAppointment={deleteAppointment} />
     );
 
-    expect(getByText(dataMock.date)).toBeTruthy();
-  });
-  //testar svg
-  it("should render correctly player svg if owner true", () => {});
-  it("should render correctly player svg if owner false", () => {});
+    const textCategoryTitle = getByTestId("appointment-category-title");
 
+    expect(textCategoryTitle.children[0]).toBeUndefined();
+  });
+
+  it("should render correctly icon trash in fontisto", () => {
+    const { getByTestId } = render(
+      <Appointment data={dataMock} deleteAppointment={deleteAppointment} />
+    );
+
+    const iconTrash = getByTestId("fontisto");
+
+    expect(iconTrash).toBeTruthy();
+  });
+
+  it("should render correctly date", () => {
+    const { getByTestId } = render(
+      <Appointment data={dataMock} deleteAppointment={deleteAppointment} />
+    );
+
+    const viewAppointmentDate = getByTestId("appointment-dateInfo");
+    const textDate = viewAppointmentDate.children[1] as ReactTestInstance;
+
+    expect(textDate.instance.props.children).toBe(dataMock.date);
+  });
+
+  it("should render correctly svg", () => {
+    const { getByTestId } = render(
+      <Appointment data={dataMock} deleteAppointment={deleteAppointment} />
+    );
+
+    const viewAppointmentDate = getByTestId("appointment-dateInfo");
+    const svgCalendar = viewAppointmentDate.children[0] as ReactTestInstance;
+
+    expect(svgCalendar.type).toBe("calendar.svg");
+  });
+
+  //duas formas de fazer o test vendo props
+  it("should render correctly player svg if owner true", () => {
+    const { getByTestId } = render(
+      <Appointment data={dataMock} deleteAppointment={deleteAppointment} />
+    );
+
+    const viewAppointmentDate = getByTestId("appointment-playersInfo");
+    const svgPlayerPrimary = viewAppointmentDate
+      .children[0] as ReactTestInstance;
+
+    expect(svgPlayerPrimary.type).toBe("player.svg");
+    expect(svgPlayerPrimary.props.fill).toBe(primary);
+  });
+
+  it("should render correctly player svg if owner false", () => {
+    dataMock.guild.owner = false;
+    const { getByTestId } = render(
+      <Appointment data={dataMock} deleteAppointment={deleteAppointment} />
+    );
+
+    const viewAppointmentDate = getByTestId("appointment-playersInfo");
+    const svgPlayerOn = viewAppointmentDate.children[0] as ReactTestInstance;
+
+    expect(svgPlayerOn.type).toBe("player.svg");
+    expect(svgPlayerOn.props.fill).toBe(on);
+  });
+  //outra forma - pegando o testID dinâmico
   it("should render correctly owner when true in 'Anfitrião' and color when 'primary'", () => {
     const { getByText, getByTestId } = render(
       <Appointment data={dataMock} deleteAppointment={deleteAppointment} />
     );
+
     const owner = getByTestId(makeValidMockOwnerTestID([primary]));
 
     expect(getByText("Anfitrião")).toBeTruthy();
     expect(owner.props.style[1]).toEqual({ color: primary });
-    expect(getByTestId(owner.props.testID)).toBeTruthy();
   });
 
   it("should render correctly owner when true in 'Visitante' and color when 'on'", () => {
     dataMock.guild.owner = false;
+
     const { getByText, getByTestId } = render(
       <Appointment data={dataMock} deleteAppointment={deleteAppointment} />
     );
+
     const owner = getByTestId(makeValidMockOwnerTestID([on]));
 
     expect(getByText("Visitante")).toBeTruthy();
     expect(owner.props.style[1]).toEqual({ color: on });
-    expect(getByTestId(owner.props.testID)).toBeTruthy();
   });
 });
