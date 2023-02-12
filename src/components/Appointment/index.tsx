@@ -11,7 +11,7 @@ import { PlayerSvg, CalendarSvg } from "../../assets/svg";
 import { theme } from "../../global/styles/theme";
 import { styles } from "./styles";
 import { categories } from "../../ultis";
-import { GuildIcon } from "../../components";
+import GuildIcon from "../GuildIcon";
 
 type Props = RectButtonProps & {
   data: AppointmentType;

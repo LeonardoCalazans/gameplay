@@ -14,7 +14,7 @@ const ButtonIcon = ({ title, ...rest }: props) => {
       <View style={styles.iconWrapper}>
         <Image
           testID="buttonIcon-image"
-          source={DiscordImg}
+          source={{ uri: DiscordImg }}
           style={styles.icon}
         />
       </View>

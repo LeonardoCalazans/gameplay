@@ -14,7 +14,7 @@ type Props = {
 const GuildIcon = ({ guildId, iconId }: Props) => {
   const uri = `${CDN_IMAGE}/icons/${guildId}/${iconId}.png`;
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID='guildIcon'>
       {iconId ? (
         <Image source={{ uri }} style={styles.image} resizeMode="cover" />
       ) : (

@@ -1,28 +1,21 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React from "react";
+import { View, Text } from "react-native";
 
-import { styles } from './styles';
+import { styles } from "./styles";
 
 type Props = {
   title: string;
   subtitle: string;
-}
+};
 
-const ListHeader = ({ 
-  title,
-  subtitle
- }: Props) => {
+const ListHeader = ({ title, subtitle }: Props) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>
-        { title }
-      </Text>
+    <View style={styles.container} testID="listHeader">
+      <Text style={styles.title}>{title}</Text>
 
-      <Text style={styles.subtitle}>
-        { subtitle }
-      </Text>
+      <Text style={styles.subtitle}>{subtitle}</Text>
     </View>
-  )
-}
+  );
+};
 
 export default ListHeader;

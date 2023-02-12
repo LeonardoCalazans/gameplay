@@ -11,6 +11,7 @@ const Background: React.FC<Props> = ({ children, onLayout }) => {
   const { secondary80, secondary100 } = theme.colors;
   return (
     <LinearGradient
+      testID="background"
       style={styles.container}
       colors={[secondary80, secondary100]}
       onLayout={onLayout}

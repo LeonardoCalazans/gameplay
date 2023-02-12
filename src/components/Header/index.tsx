@@ -20,8 +20,10 @@ const Header = ({ title, action }: Props) => {
   const handleGoBack = () => {
     navigation.goBack();
   };
+  
   return (
     <LinearGradient
+      testID="header"
       style={styles.container}
       colors={[secondary100, secondary40]}
     >
@@ -32,6 +34,6 @@ const Header = ({ title, action }: Props) => {
       {action ? <View>{action}</View> : <View style={{ width: 24 }}></View>}
     </LinearGradient>
   );
-}
+};
 
 export default Header;
