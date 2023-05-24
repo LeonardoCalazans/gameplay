@@ -1,18 +1,16 @@
 import React from "react";
-import { LinearGradient } from "expo-linear-gradient";
+import { View, Text } from "react-native";
 import {
   BorderlessButton,
   RectButton,
   RectButtonProps,
 } from "react-native-gesture-handler";
-import { View, Text } from "react-native";
-
+import { LinearGradient } from "expo-linear-gradient";
+import { Fontisto } from "@expo/vector-icons";
+import { PlayerSvg, CalendarSvg } from "../../assets/svg";
 import { theme } from "../../global/styles/theme";
 import { styles } from "./styles";
-import PlayerSvg from "../../assets/svg/player.svg";
-import CalendarSvg from "../../assets/svg/calendar.svg";
-import { categories } from "../../ultis/consts/categories.consts";
-import { Fontisto } from "@expo/vector-icons";
+import { categories } from "../../ultis";
 import GuildIcon from "../GuildIcon";
 
 type Props = RectButtonProps & {
@@ -28,7 +26,7 @@ const Appointment = ({ data, deleteAppointment, ...rest }: Props) => {
   const { primary, on, secondary50, secondary70 } = theme.colors;
 
   return (
-    <RectButton {...rest}>
+    <RectButton {...rest} testID={"appointment"}>
       <View style={styles.container}>
         <LinearGradient
           style={styles.guildIconContainer}
@@ -38,10 +36,12 @@ const Appointment = ({ data, deleteAppointment, ...rest }: Props) => {
         </LinearGradient>
 
         <View style={styles.content}>
-          <View style={styles.header}>
+          <View testID="appointment-header" style={styles.header}>
             <Text style={styles.title}>{data.guild.name}</Text>
 
-            <Text style={styles.category}>{category?.title}</Text>
+            <Text testID="appointment-category-title" style={styles.category}>
+              {category?.title}
+            </Text>
             <BorderlessButton>
               <Fontisto
                 name="trash"
@@ -53,16 +53,18 @@ const Appointment = ({ data, deleteAppointment, ...rest }: Props) => {
           </View>
 
           <View style={styles.footer}>
-            <View style={styles.dateInfo}>
+            <View testID="appointment-dateInfo" style={styles.dateInfo}>
               <CalendarSvg />
-
               <Text style={styles.date}>{data.date}</Text>
             </View>
 
-            <View style={styles.playersInfo}>
+            <View testID="appointment-playersInfo" style={styles.playersInfo}>
               <PlayerSvg fill={owner ? primary : on} />
 
-              <Text style={[styles.player, { color: owner ? primary : on }]}>
+              <Text
+                testID={`appointment-owner-test${owner ? primary : on}`}
+                style={[styles.player, { color: owner ? primary : on }]}
+              >
                 {owner ? "Anfitrião" : "Visitante"}
               </Text>
             </View>

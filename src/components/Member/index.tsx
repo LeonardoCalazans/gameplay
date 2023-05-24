@@ -19,12 +19,12 @@ const Member = ({ data }: Props) => {
   const { on, primary } = theme.colors;
   const isOnline = data.status === "online";
   return (
-    <View style={styles.container}>
+    <View testID="member" style={styles.container}>
       <Avatar urlImage={data.avatar_url} />
       <View>
         <Text style={styles.title}>{data.username}</Text>
         <View style={styles.status}>
-          <View
+          <View testID="member-status"
             style={[
               styles.bulletStatus,
               {

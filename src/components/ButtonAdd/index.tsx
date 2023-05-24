@@ -6,7 +6,7 @@ import { styles } from "./styles";
 
 const ButtonAdd = ({ ...rest }: RectButtonProps) => {
   return (
-    <RectButton style={styles.container} {...rest}>
+    <RectButton style={styles.container} testID="buttonAdd" {...rest}>
       <MaterialCommunityIcons
         name="plus"
         color={theme.colors.heading}

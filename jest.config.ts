@@ -8,6 +8,7 @@ const config: Config.InitialOptions = {
     preset: "jest-expo",
     testPathIgnorePatterns: [
         "/node_modules",
+        "src/__tests__/mocks",
         "/android",
         "/ios",
     ],
@@ -21,7 +22,7 @@ const config: Config.InitialOptions = {
     ],
     collectCoverage: true,
     collectCoverageFrom: [
-        "**/*.{js,jsx}",
+        "src/**/*.{ts,tsx}",
         "!**/coverage/**",
         "!**/node_modules/**",
         "!**/babel.config.js",

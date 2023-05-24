@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView } from "react-native";
 
 import { styles } from "./styles";
-import { categories } from "../../ultis/consts/categories.consts";
+import { categories } from "../../ultis";
 
 import Category from "../Category";
 
@@ -19,6 +19,7 @@ const CategorySelect = ({
 }: Props) => {
   return (
     <ScrollView
+      testID="category-select"
       horizontal
       style={styles.container}
       showsHorizontalScrollIndicator={false}

@@ -10,7 +10,7 @@ import { theme } from '../../global/styles/theme';
 
 const Load = () => {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID={"Load"}>
       <ActivityIndicator 
         size="large"
         color={theme.colors.primary}

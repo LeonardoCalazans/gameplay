@@ -17,13 +17,13 @@ const Category = ({
   title,
   icon: Icon,
   hasCheckBox = false,
-  checked = false,
+  checked,
   ...rest
 }: Props) => {
   const { secondary85, secondary70, secondary50, secondary40 } = theme.colors;
 
   return (
-    <RectButton {...rest}>
+    <RectButton {...rest} testID="category">
       <LinearGradient
         style={styles.container}
         colors={[secondary70, secondary50]}
@@ -33,7 +33,10 @@ const Category = ({
           colors={[checked ? secondary85 : secondary50, secondary40]}
         >
           {hasCheckBox && (
-            <View style={checked ? styles.checked : styles.check} />
+            <View
+              testID="checkbox"
+              style={checked ? styles.checked : styles.check}
+            />
           )}
           <Icon width={48} height={48} />
           <Text style={styles.title}>{title}</Text>
@@ -41,6 +44,6 @@ const Category = ({
       </LinearGradient>
     </RectButton>
   );
-}
+};
 
 export default Category;
